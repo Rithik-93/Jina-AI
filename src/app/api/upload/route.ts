@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { index } from "../actions/action";
 import { randomUUID } from "crypto";
 import { generateEmbedding } from "../actions/ai";
+import { uploadToDb } from "../actions/query";
 
+export const testNameSpace = "jina";
 
-interface Product {
+export interface Product {
     id: string,
     title: string,
     category: string,
@@ -35,41 +37,14 @@ export async function POST(req: NextRequest) {
 
             const dataToEmbed = title.concat(description);
             const embedding = await generateEmbedding(dataToEmbed);
-            await upsertToPinecone(product, embedding);
+            await uploadToDb(product, embedding, testNameSpace);
 
-            return {
-                id,
-                embedding,
-                metadata: {
-                    title,
-                    category,
-                    tags,
-                    price,
-                    brand,
-                    description,
-                    image_url
-                },
-            };
+            return data
         }));
 
         return NextResponse.json({ vectors });
     } catch (error) {
         console.error('Error uploading products:', error);
         return NextResponse.json({ message: 'Internal Server Error' });
-    }
-}
-
-async function upsertToPinecone(product: Product, embedding: number[]) {
-    const record = {
-        id: randomUUID(),
-        values: embedding,
-    };
-
-    try {
-        await index.namespace("jina").upsert([record]);
-        console.log('Record upserted successfully!');
-    } catch (error) {
-        console.error('Error upserting to Pinecone:', error);
-        throw error;
     }
 }
