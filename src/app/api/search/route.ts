@@ -7,11 +7,11 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     const { query } = data;
     const embed = await generateEmbedding(query);
-    const dat = await queryPinecone(embed);
+    const dat = await searchDB(embed);
     console.log(dat);
     return NextResponse.json({ dat })
 }
-async function queryPinecone(queryVector: any) {
+async function searchDB(queryVector: any) {
     try {
         const queryResponse = await index.namespace("jina").query({
             vector: queryVector,

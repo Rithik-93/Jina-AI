@@ -11,12 +11,14 @@
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@pinecone-database/pinecone": "^4.1.0",
+    "@prisma/client": "^6.2.1",
     "@tensorflow/tfjs": "^4.22.0",
     "axios": "^1.7.9",
     "install": "^0.13.0",
     "next": "15.1.4",
     "npm": "^11.0.0",
     "pinecone-client": "^2.0.0",
+    "prisma": "^6.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "uuid": "^11.0.5"
