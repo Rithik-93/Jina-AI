@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { index } from "../actions/action";
 import { randomUUID } from "crypto";
-import { generateEmbedding } from "../actions/ai";
-import prisma from "../../../../prisma/src";
+import { generateEmbedding } from "../../actions/ai";
+import prisma from "../../../../../prisma/src";
+import { index } from "../../actions/action";
 
 export interface Product {
     id: string,

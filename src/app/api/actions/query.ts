@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { index } from "./action";
-import { Product } from "../upload/route";
 import prisma from "../../../../prisma/src";
+import { Product } from "../products/ingest/route";
 
 export async function uploadToDb(product: Product, embedding: number[], namespace: string) {
     const record = {
@@ -32,17 +32,3 @@ export async function queryItems(clientId: number) {
         throw new Error(`Pinecone query failed: ${error}`);
     }
 }
-
-// export async function uploadDb(product: Product[], clientId: number) {
-//     const items = await prisma.item.createMany({
-//         data: product.map(x =>
-//         ({
-//             clientId: clientId.toString(),
-//             metadata: JSON.parse(JSON.stringify(x)),
-//             name: x.title,
-//         })
-//         )
-//     })
-
-//     return items
-// }
