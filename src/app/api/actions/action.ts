@@ -7,4 +7,4 @@ export const pc = new Pinecone({
 export const indexName = "jina";
 export const indexHost = process.env.HOST;
 
-export const index = pc.index(indexName,)
+export const index = pc.index(indexName,indexHost)

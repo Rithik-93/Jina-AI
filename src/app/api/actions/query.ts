@@ -33,17 +33,16 @@ export async function queryItems(clientId: number) {
     }
 }
 
-export async function uploadDb(product: Product[], clientId: number) {
-    const items = await prisma.item.createMany({
-        data: product.map(x =>
-        ({
-            clientId: clientId.toString(),
-            metadata: JSON.parse(JSON.stringify(x)),
-            name: x.title,
-            status: "active"
-        })
-        )
-    })
+// export async function uploadDb(product: Product[], clientId: number) {
+//     const items = await prisma.item.createMany({
+//         data: product.map(x =>
+//         ({
+//             clientId: clientId.toString(),
+//             metadata: JSON.parse(JSON.stringify(x)),
+//             name: x.title,
+//         })
+//         )
+//     })
 
-    return items
-}
+//     return items
+// }

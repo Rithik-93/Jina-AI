@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { index } from "../actions/action";
 import { randomUUID } from "crypto";
 import { generateEmbedding } from "../actions/ai";
-import { uploadDb, uploadToDb } from "../actions/query";
 import prisma from "../../../../prisma/src";
 
 export interface Product {
@@ -95,9 +94,8 @@ export async function POST(req: NextRequest) {
                 const dbRecords = successfulResults.map(result => ({
                     vectorId: result.id,
                     name: result.metadata.title,
-                    clientId: namespace,
+                    clientId: String(namespace),
                     metadata: result.metadata,
-                    status: 'active'
                 }));
 
                 await prisma.$transaction(async (tx) => {
